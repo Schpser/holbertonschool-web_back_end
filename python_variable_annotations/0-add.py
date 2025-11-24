@@ -3,5 +3,5 @@
 
 
 def add(a: float, b: float) -> float:
-    """Function add, variable type : float"""
+    """Returns the sum of two floating-point numbers."""
     return a + b
