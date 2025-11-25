@@ -16,7 +16,7 @@ x = "hello"   # maintenant x est un str
 
 Par exemple, si vous définissez une fonction `fn(a, b)`, les types de `a` et `b` ne sont connus que lorsque la fonction est appelée et que des valeurs leur sont assignées. Tenter d'additionner une chaîne de caractères (`str`) et un entier (`int`) ne lèvera une exception `TypeError` qu'au moment de l'exécution du code. ⚠️
 
-### 🎯 Rôle des Annotations de Type
+## 2. 🎯 Rôle des Annotations de Type
 
 En Python 3, l'ajout d'annotations de type **ne change pas** le fait que le langage reste dynamiquement typé. Les annotations servent principalement à deux objectifs :
 
@@ -177,4 +177,48 @@ Certains outils du module `typing` ne sont destinés qu'à l'analyse statique ou
 
 ***
 
-En résumé, si Python est une rivière à **typage dynamique** (le type est découvert en naviguant), les annotations de type agissent comme des **balises lumineuses** (les *type hints*) qui guident les vérificateurs statiques pour s'assurer que vous êtes bien sur la bonne voie avant même de mettre le bateau à l'eau.
+## 6. Floors "Paliers"
+Bonjour ! C'est une excellente question conceptuelle. Pas de code, promis, nous allons nous concentrer uniquement sur la logique derrière ce terme.
+
+Pour faire simple, le "floor" (qui signifie "sol" ou "plancher" en anglais) est une méthode mathématique spécifique pour transformer un nombre à virgule (un float) en un nombre entier.
+
+Voici l'explication détaillée de ce que c'est et de son utilité.
+
+1. Qu'est-ce que le "Floor" ?
+Imagine que tu te trouves dans un ascenseur ou sur un escalier.
+
+L'image du Plancher : Le "floor" consiste à regarder le nombre à virgule et à descendre à l'entier qui se trouve juste en dessous (le "sol" sous tes pieds).
+
+<img src="holbertonschool-web_back_end/Notions/Floors.jpg" alt="Floors diagram">
+
+Cela semble évident pour les nombres positifs, mais c'est plus subtil pour les négatifs.
+
+La différence cruciale : Positif vs Négatif
+C'est ici que la distinction se fait avec une simple "coupure" des décimales (troncature).
+
+La Règle d'Or : Il renvoie toujours le plus grand entier qui est inférieur ou égal au nombre donné.
+
+| Type de nombre | Exemple (Float) | Action du Floor | Résultat | Explication |
+|:---------------|:----------------|:----------------|:---------|:------------|
+| Positif | 3.8 | On descend au "sol" | 3 | 3 est bien l'entier juste en dessous de 3.8. |
+| Négatif | -3.8 | On descend encore | -4 | Attention ! -4 est plus petit que -3. Le "sol" sous -3.8, c'est -4, pas -3. |
+
+2. À quoi ça sert concrètement ?
+Pourquoi utiliser "floor" plutôt qu'un arrondi classique (où 3.9 deviendrait 4) ? Voici des cas d'usage fréquents dans la logique informatique :
+
+La Discrétisation (Les cases d'une grille) : Imagine un jeu vidéo en 2D avec une grille (comme un échiquier). Si ton personnage est à la position horizontale 5.9, il est toujours physiquement dans la case numéro 5. Il n'est pas encore entré dans la case 6. Le "floor" permet de savoir instantanément dans quelle case "logique" se trouve un objet.
+
+Calculs de temps (Intervalles complets) : Si tu veux savoir combien d'heures complètes se sont écoulées. Si le chronomètre indique 2.99 heures, cela fait toujours 2 heures complètes, pas 3. On ne passe à 3 que lorsque l'heure est totalement révolue.
+
+Pagination (Interfaces Web) : C'est souvent utilisé (parfois couplé avec son opposé, le "ceiling" ou plafond) pour calculer le nombre d'éléments à afficher. Si tu as un index d'article à 15.4, tu sais que tu as dépassé le 15ème, mais la logique de "floor" aide à déterminer l'index de départ de la page actuelle.
+
+Finance et Marketing : Parfois, pour des raisons psychologiques ou légales, on doit arrondir vers le bas. Si un calcul de réduction donne 19.99 euros de remise, une règle stricte de "floor" pourrait ramener cela à 19 euros (selon la logique métier choisie), bien que mathématiquement ce soit très proche de 20.
+
+3. En résumé
+Le "floor" est une opération simple mais puissante qui trouve son utilité dans de nombreux domaines de la programmation et des mathématiques appliquées. Il permet de "descendre" à l'entier le plus proche en dessous d'un nombre à virgule, ce qui est crucial pour des situations où la logique de positionnement, de temps ou de comptage doit être précise et cohérente.
+
+---
+
+## Conclusion
+
+Si Python est une rivière à **typage dynamique** (le type est découvert en naviguant), les annotations de type agissent comme des **balises lumineuses** (les *type hints*) qui guident les vérificateurs statiques pour s'assurer que vous êtes bien sur la bonne voie avant même de mettre le bateau à l'eau.
