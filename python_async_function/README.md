@@ -8,11 +8,11 @@ Welcome to the **Python - Async** project! 🎉 This repository focuses on async
 
 | Task | Description |
 |------|-------------|
-| `0-basic_async_syntax` | ⏰ Basic async coroutine with random delays |
-| `1-concurrent_coroutines` | 🚀 Execute multiple coroutines concurrently |
-| `2-measure_runtime` | ⏱️ Measure execution time of async functions |
-| `3-tasks` | 📦 Create asyncio Tasks |
-| `4-tasks` | 🔄 Altered version using Tasks |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_async_function/0-basic_async_syntax.py" target="_blank">`0-basic_async_syntax`</a> | ⏰ Basic async coroutine with random delays |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_async_function/1-concurrent_coroutines.py" target="_blank">`1-concurrent_coroutines`</a> | 🚀 Execute multiple coroutines concurrently |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_async_function/2-measure_runtime.py" target="_blank">`2-measure_runtime`</a> | ⏱️ Measure execution time of async functions |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_async_function/3-tasks.py" target="_blank">`3-tasks`</a> | 📦 Create asyncio Tasks |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_async_function/4-tasks.py" target="_blank">`4-tasks`</a> | 🔄 Altered version using Tasks |
 
 ## 🎯 Concepts Covered
 
