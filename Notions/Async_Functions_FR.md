@@ -144,3 +144,62 @@ asyncio.run(main())
 | `asyncio.run()` | **Point d'entrée** principal 🚪 |
 | `asyncio.create_task()` | Lance une tâche en **arrière-plan** 🔄 |
 | `asyncio.gather()` | Exécute plusieurs coroutines **concurrentiellement** ⚡ |
+
+---
+
+## 6. Compréhensions Asynchrones (PEP 530) 📜
+
+La PEP 530 (introduite en Python 3.6) ajoute des versions asynchrones des syntaxes de compréhension (listes, ensembles, dictionnaires) et des expressions de générateur pour améliorer la lisibilité.
+
+### A. Syntaxe et Types
+
+Les compréhensions asynchrones permettent d'utiliser l'instruction `async for`.
+
+| Type de Compréhension | Exemple de Syntaxe | Supporté par PEP 530 |
+|-----------------------|------------------------------------|----------------------|
+| Liste | `[i async for i in agen()]` | Oui |
+| Ensemble (Set) | `{i async for i in agen()}` | Oui |
+| Dictionnaire (Dict) | `{i: i ** 2 async for i in agen()}` | Oui |
+| Expression de Générateur | `(i ** 2 async for i in agen())` | Oui |
+
+**Exemple de lisibilité :**
+Le code `result = []` suivi de `async for i in aiter(): if i % 2: result.append(i)` peut être remplacé par :
+`result = [i async for i in aiter() if i % 2]`
+
+### B. Restrictions d'Usage
+
+1.  **Contexte Obligatoire** : Les compréhensions asynchrones sont uniquement autorisées à l'intérieur d'une fonction définie avec `async def`.
+2.  **Itérateur Asynchrone** : L'objet sur lequel on itère doit implémenter la méthode `__aiter__`. Utiliser `async for` avec un itérable synchrone (comme `range`) génère une `TypeError`.
+
+### C. L'utilisation d'`await`
+
+La PEP 530 permet également d'utiliser des expressions `await` dans tous les types de compréhensions (synchrones ou asynchrones), à condition que la compréhension soit dans le corps d'une fonction `async def`.
+
+-   **Exemple synchrone utilisant `await`**: `result = [await fun() for fun in funcs]`
+-   **Exemple asynchrone utilisant `await`**: `result = [await fun() async for fun in funcs]`
+
+---
+
+## 7. Générateurs et Annotation de Type (Type Hinting) 🧬
+
+Les générateurs (fonctions utilisant `yield`) et l'annotation de type (PEP 484) sont liés pour indiquer clairement ce qu'une fonction de générateur retourne.
+
+### Le Type `Generator`
+
+Pour annoter le type de retour d'une fonction de générateur, on utilise le type générique `Generator` du module `typing`.
+
+La syntaxe est : `Generator[YieldType, SendType, ReturnType]`.
+
+-   **`YieldType`**: Le type de la valeur produite (`yield`).
+-   **`SendType`**: Le type de la valeur qui peut être envoyée au générateur via `generator.send()`.
+-   **`ReturnType`**: Le type de la valeur retournée par le générateur.
+
+Si `SendType` et `ReturnType` ne sont pas utilisés, ils peuvent être réglés sur `None` ou omis.
+
+### Distinctions entre `Iterable`, `Iterator` et `Generator`
+
+| Type | Description |
+|---|---|
+| **Iterable** | Le plus général. Tout objet qui peut être itéré (`__iter__()` ou `__getitem__()`). |
+| **Iterator** | Un sous-type de `Iterable`. Implémente le protocole d'itérateur (`__iter__()` et `__next__()`). Pour les générateurs simples, `Iterator[YieldType]` est souvent suffisant. |
+| **Generator** | Un sous-type plus spécialisé d' `Iterator`, produit par une fonction `yield`. Son usage est conseillé pour spécifier `SendType` ou `ReturnType`. |
