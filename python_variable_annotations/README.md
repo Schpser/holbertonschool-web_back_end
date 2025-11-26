@@ -8,16 +8,17 @@ Welcome to the **Python Variable Annotations** project! 🎉 This repository con
 
 | Task | Description |
 |------|-------------|
-| `0-add` | ➕ Basic function annotations |
-| `1-concat` | 🔗 String type annotations |
-| `2-floor` | 🔢 Float to int conversion |
-| `3-to_str` | 📝 Float to string conversion |
-| `4-define_variables` | 🏷️ Variable type annotations |
-| `5-sum_list` | 📊 List of floats typing |
-| `6-sum_mixed_list` | 🎭 Union types with lists |
-| `7-to_kv` | 🎯 Tuples and complex unions |
-| `8-make_multiplier` | 🔧 Callable types |
-| `9-element_length` | 🦆 Duck typing with iterables |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/0-add.py" target="_blank">`0-add`</a> | ➕ Basic function annotations |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/1-concat.py" target="_blank">`1-concat`</a> | 🔗 String type annotations |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/2-floor.py" target="_blank">`2-floor`</a> | 🔢 Float to int conversion |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/3-to_str.py" target="_blank">`3-to_str`</a> | 📝 Float to string conversion |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/4-define_variables.py" target="_blank">`4-define_variables`</a> | 🏷️ Variable type annotations |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/5-sum_list.py" target="_blank">`5-sum_list`</a> | 📊 List of floats typing |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/6-sum_mixed_list.py" target="_blank">`6-sum_mixed_list`</a> | 🎭 Union types with lists |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/7-to_kv.py" target="_blank">`7-to_kv`</a> | 🎯 Tuples and complex unions |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/8-make_multiplier.py" target="_blank">`8-make_multiplier`</a> | 🔧 Callable types |
+| <a href="https://github.com/Schpser/holbertonschool-web_back_end/blob/main/python_variable_annotations/9-element_length.py" target="_blank">`9-element_length`</a> | 🦆 Duck typing with iterables |
+
 
 ## 🎯 Concepts Covered
 
