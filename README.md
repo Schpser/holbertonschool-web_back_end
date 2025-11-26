@@ -6,9 +6,9 @@ This repository contains back-end projects developed by a student at **Holberton
 
 This repository is organized into the following projects:
 
-*   `python_variable_annotations` 🏷️: This project covers the use of type annotations for variables in Python, promoting code clarity and maintainability.
-*   `python_async` ⚡: This project explores asynchronous programming in Python using `async` and `await` syntax, essential for building high-performance I/O-bound applications.
-*   `python_async_comprehension` 🔄: This project delves into async comprehensions, providing a concise way to work with asynchronous iterators.
+*   <a href="https://github.com/Schpser/holbertonschool-web_back_end/tree/main/python_variable_annotations" target="_blank">`python_variable_annotations`</a> 🏷️: This project covers the use of type annotations for variables in Python, promoting code clarity and maintainability.
+*   <a href="https://github.com/Schpser/holbertonschool-web_back_end/tree/main/python_async_function" target="_blank">`python_async`</a> ⚡: This project explores asynchronous programming in Python using `async` and `await` syntax, essential for building high-performance I/O-bound applications.
+*   <a href="https://github.com/Schpser/holbertonschool-web_back_end/tree/main/python_async_comprehension" target="_blank">`python_async_comprehension`</a> 🔄: This project delves into async comprehensions, providing a concise way to work with asynchronous iterators.
 
 ## 🚀 Getting Started
 
