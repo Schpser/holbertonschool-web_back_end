@@ -1,5 +1,2 @@
 // 0-list_databases - script to list all databases
-var result = db.adminCommand({listDatabases: 1});
-result.databases.forEach(function(db) {
-    print(db.name);
-});
+show dbs
