@@ -1,28 +1,33 @@
 #!/usr/bin/env python3
-"""Module that provides stats about Nginx logs in MongoDB"""
+""" Provide Nginx stats, stored in MongoDB """
 
 
 from pymongo import MongoClient
 
+
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
+
     collection = client.logs.nginx
 
     total_logs = collection.count_documents({})
+    get_count = collection.count_documents({"method": "GET"})
+    post_count = collection.count_documents({"method": "POST"})
+    put_count = collection.count_documents({"method": "PUT"})
+    patch_count = collection.count_documents({"method": "PATCH"})
+    delete_count = collection.count_documents({"method": "DELETE"})
 
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    counts = []
-    for method in methods:
-        count = collection.count_documents({"method": method})
-        counts.append(count)
+    status_count = collection.count_documents(
+        {"method": "GET", "path": "/status"}
+        )
 
-    status_check = collection.count_documents({
-        "method": "GET",
-        "path": "/status"
-    })
-
-    print("{} logs".format(total_logs))
-    print("Methods:")
-    for i, method in enumerate(methods):
-        print("    method {}: {}".format(method, counts[i]))
-    print("{} status check".format(status_check))
+    print(
+        f"{total_logs} logs\n"
+        "Methods:\n"
+        f"\tmethod GET: {get_count}\n"
+        f"\tmethod POST: {post_count}\n"
+        f"\tmethod PUT: {put_count}\n"
+        f"\tmethod PATCH: {patch_count}\n"
+        f"\tmethod DELETE: {delete_count}\n"
+        f"{status_count} status check"
+    )
