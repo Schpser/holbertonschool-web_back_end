@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """ Provide Nginx stats, stored in MongoDB """
-
-
 from pymongo import MongoClient
 
 
