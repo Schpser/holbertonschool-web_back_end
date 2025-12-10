@@ -1,10 +1,16 @@
+import getBudgetObject from './7-getBudgetObject.js';
 
-export default function appendToEachArrayValue(array, appendString) {
-  const newArray = [];
-  
-  for (const value of array) {
-    newArray.push(appendString + value);
-  }
-  
-  return newArray;
+export default function getFullBudgetObject(income, gdp, capita) {
+  const budget = getBudgetObject(income, gdp, capita);
+  const fullBudget = {
+    ...budget,
+    getIncomeInDollars(income) {
+      return `$${income}`;
+    },
+    getIncomeInEuros(income) {
+      return `${income} euros`;
+    },
+  };
+
+  return fullBudget;
 }
