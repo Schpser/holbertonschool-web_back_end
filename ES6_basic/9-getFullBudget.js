@@ -1,5 +1,3 @@
-import getBudgetObject from './7-getBudgetObject.js';
-
 export default function appendToEachArrayValue(array, appendString) {
   const newArray = [];
   
