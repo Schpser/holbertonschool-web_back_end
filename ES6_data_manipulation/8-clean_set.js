@@ -1,5 +1,6 @@
 export default function cleanSet(set, startString) {
-  if (startString === '') return '';
+  if (!startString || startString.length === 0) 
+    return '';
   
   return Array.from(set)
     .filter(value => value.startsWith(startString))
