@@ -97,61 +97,380 @@ Un `WeakMap` est une collection clé-valeur qui ne crée pas de références for
 Pensez à `WeakMap` comme un badge de sécurité temporaire : si l'employé (l'objet) quitte l'entreprise, son badge (la référence dans le `WeakMap`) est automatiquement désactivé.
 
 
---------------------------------------------------------------------------------
-Module 2 : Les Tableaux Typés JavaScript (Typed Arrays)
-Les tableaux typés ne sont pas destinés à remplacer les tableaux normaux, mais à fournir une interface familière pour la manipulation de données binaires brutes.
-Buffers et Vues (Views)
-L'implémentation des tableaux typés est scindée en deux parties pour maximiser la flexibilité et l'efficacité :
-1. Le Buffer (ArrayBuffer ou SharedArrayBuffer) : Représente un bloc de données brutes en mémoire et n'a pas de format spécifique. On ne peut ni lire ni écrire directement dans un buffer.
-2. La Vue (Typed Array Views ou DataView) : Fournit le contexte (type de données, décalage de départ et nombre d'éléments) pour accéder à la mémoire contenue dans le buffer.
-Les vues de tableau typé ont des noms auto-descriptifs (ex : Int8Array, Float64Array) et interprètent les données dans le buffer selon le type numérique spécifié.
-Caractéristiques et Différences
-• Types de données binaires : Chaque entrée d'un tableau typé est une valeur binaire brute dans un format pris en charge (ex : entiers 8 bits, nombres flottants 64 bits).
-• Longueur Fixe : Les tableaux typés sont, en principe, de longueur fixe. Par conséquent, les méthodes de tableau qui peuvent modifier la longueur (comme push(), pop(), splice(), shift(), et unshift()) ne sont pas disponibles.
-• Différence Array.isArray() : L'appel de Array.isArray() sur un tableau typé retourne false.
-• DataView : C'est une interface de plus bas niveau qui permet un contrôle granulaire de l'accès aux données, notamment en permettant de contrôler l'ordre des octets (endianness), contrairement aux vues de tableau typé qui utilisent l'ordre des octets natif de la plateforme.
+---
 
---------------------------------------------------------------------------------
-Module 3 : L'Objet Map
-L'objet Map détient des paires clé-valeur et a la particularité de se souvenir de l'ordre d'insertion original des clés.
-Caractéristiques principales
-• Clés Flexibles : N'importe quelle valeur (objets, primitives, fonctions) peut être utilisée comme clé.
-• Unicité des Clés : Une clé ne peut apparaître qu'une seule fois dans la collection Map.
-• Égalité des Clés : L'égalité des valeurs est basée sur l'algorithme SameValueZero. Cela signifie que NaN est considéré comme égal à NaN (même si NaN !== NaN est vrai). Pour les clés d'objet, l'égalité est basée sur l'identité de l'objet (comparaison par référence).
-• Itération : L'itération se fait par paires clé-valeur dans l'ordre d'insertion. Une boucle for...of retourne un tableau à deux membres [key, value] pour chaque itération.
-• Propriété size : Le nombre d'éléments est facilement récupéré via la propriété size.
-Map vs. Object
-Map est souvent préférable à l'utilisation d'un objet (Object) pour les collections clé-valeur : | Caractéristique | Map | Object | | :--- | :--- | :--- | | Clés Accidentelles | Ne contient aucune clé par défaut ; uniquement ce qui est inséré explicitement, ce qui le rend plus sûr avec des clés fournies par l'utilisateur. | Possède un prototype, ce qui peut entraîner des collisions avec les clés par défaut. | | Types de Clés | Peut être n'importe quelle valeur (objet, fonction, primitive). | Les clés doivent être une chaîne de caractères ou un Symbol. | | Ordre | Itère les entrées dans l'ordre d'insertion. | Bien que l'ordre des clés soit défini maintenant, il était historiquement complexe, et il est préférable de ne pas s'y fier. | | Performance | Meilleure performance pour les ajouts et suppressions fréquents. | Moins optimisé pour les ajouts et suppressions fréquents. |
+## 🎯 SYNTAXES PRATIQUES
 
---------------------------------------------------------------------------------
-Module 4 : L'Objet Set
-L'objet Set permet de stocker des valeurs uniques de n'importe quel type.
-Caractéristiques principales
-• Unicité : Une valeur ne peut apparaître qu'une seule fois dans la collection Set.
-• Ordre d'Insertion : Les éléments sont itérés dans l'ordre où ils ont été insérés avec succès via la méthode add().
-• Égalité des Valeurs : L'égalité est basée sur l'algorithme SameValueZero (comme pour Map).
-• Opérations : Les opérations de base sont add(), delete(), has(), et clear(). La propriété size retourne le nombre de valeurs.
-• Performance : La méthode has() est en moyenne plus rapide que Array.prototype.includes() pour vérifier si une valeur est présente.
-• Itération : Les méthodes keys() et values() sont des alias et renvoient les valeurs. La méthode entries() retourne un tableau de [value, value] pour chaque élément, afin de maintenir une signature similaire à celle de Map.
-Composition d'Ensembles (Set Composition)
-L'objet Set fournit des méthodes permettant d'effectuer des opérations mathématiques sur les ensembles :
-• union(B) : Retourne un nouvel ensemble contenant les éléments des deux ensembles.
-• intersection(B) : Retourne un nouvel ensemble contenant les éléments communs aux deux ensembles.
-• difference(B) : Retourne un nouvel ensemble contenant les éléments de l'ensemble A qui ne sont pas dans l'ensemble B.
-• isSubsetOf(B) : Retourne un booléen indiquant si tous les éléments de l'ensemble A sont dans l'ensemble B.
+### 1. `map()` - Transformation 🔄
 
---------------------------------------------------------------------------------
-Module 5 : L'Objet WeakMap
-Un WeakMap est une collection clé/valeur conçue spécifiquement pour la gestion de la mémoire, car il ne crée pas de références fortes à ses clés.
-Clés et Références Faibles (Weak References)
-• Clés Autorisées : Les clés doivent être des objets ou des symboles non enregistrés (non-registered symbols). Les primitives ne peuvent généralement pas être utilisées comme clés.
-• Nettoyage de Mémoire (Garbage Collection) : Si un objet utilisé comme clé n'est plus référencé ailleurs dans le programme, le fait qu'il soit une clé dans un WeakMap ne l'empêchera pas d'être collecté par le ramasse-miettes. Une fois la clé collectée, sa paire valeur/clé correspondante devient également candidate au nettoyage.
-• Utilité : Les WeakMap sont idéales pour associer des métadonnées (données supplémentaires) à des objets sans affecter la durée de vie de ces objets, prévenant ainsi les fuites de mémoire.
-Limitations
-• Non-Énumérable : L'objet WeakMap n'est pas énumérable. Il ne possède pas de méthode pour obtenir la liste de ses clés, ni de propriété size.
-• Raison de la limitation : Si l'énumération était possible, la liste des clés dépendrait de l'état non déterministe du ramasse-miettes, ce qui est évité par cette restriction. Pour obtenir une liste de clés, il faut utiliser un Map.
+Transforme chaque élément d'un tableau en appliquant une fonction.
 
---------------------------------------------------------------------------------
+```javascript
+// Extraire les IDs d'un tableau d'objets
+const ids = students.map(student => student.id);
+
+// Version complète (function classique)
+const ids = students.map(function(student) {
+  return student.id;
+});
+```
+
+---
+
+### 2. `filter()` - Filtrage 🔍
+
+Sélectionne uniquement les éléments qui satisfont une condition.
+
+```javascript
+// Filtrer les étudiants d'une ville
+const sanFranciscoStudents = students.filter(student => 
+  student.location === 'San Francisco'
+);
+
+// Avec vérification de sécurité
+const result = array.filter(item => item && item.property === value);
+```
+
+---
+
+### 3. `reduce()` - Réduction/Agrégation ➕
+
+Réduit un tableau à une seule valeur en accumulant les résultats.
+
+```javascript
+// Somme des IDs
+const sum = students.reduce((total, student) => total + student.id, 0);
+//                           └─ accumulateur  └─ élément actuel    └─ valeur initiale
+
+// Sans valeur initiale (attention !)
+const sum = students.reduce((total, student) => total + student.id);
+// L'accumulateur commence avec le premier élément
+```
+
+---
+
+### 4. `every()` - Tous vérifient une condition ✅
+
+Vérifie si **tous** les éléments satisfont une condition.
+
+```javascript
+// Tous les éléments sont dans le Set ?
+const allExist = array.every(element => set.has(element));
+// ⚡ S'arrête au premier false (short-circuit) !
+```
+
+---
+
+### 5. `startsWith()` - Vérifier le début d'un string 🔤
+
+```javascript
+// Vérifier si une chaîne commence par un préfixe
+value.startsWith(startString)
+
+// Extraire la partie après le préfixe
+value.slice(startString.length) // Enlève le début
+```
+
+---
+
+## 🚨 BONNES PRATIQUES
+
+### ✅ Vérification des paramètres
+
+```javascript
+function maFonction(param) {
+  // Vérifier plusieurs cas d'erreur
+  if (!param || param.length === 0) {
+    return valeurParDefaut;
+  }
+  
+  // Vérifier le type
+  if (!Array.isArray(param)) {
+    return [];
+  }
+  
+  if (!(param instanceof Map)) {
+    throw new Error('Le paramètre doit être une Map');
+  }
+}
+```
+
+---
+
+### ⚠️ Gestion d'erreurs
+
+```javascript
+// Pour les Typed Arrays - vérifier les limites
+if (position < 0 || position >= length) {
+  throw new Error('Position outside range');
+}
+```
+
+---
+
+### 🚀 Return Early Pattern
+
+```javascript
+function exemple(data) {
+  if (!data) return null;          // ✅ Sortie précoce
+  if (data.length === 0) return []; // ✅ Sortie précoce
+  
+  // Logique principale (seulement si data est valide)
+  return data.map(...);
+}
+```
+
+---
+
+## 🔄 COMPARAISON DES APPROCHES
+
+### Création de Map
+
+```javascript
+// 1️⃣ Direct (statique) - Données connues à l'avance
+const map1 = new Map([['pommes', 10], ['bananes', 5]]);
+
+// 2️⃣ Avec .set() (dynamique) - Ajout progressif
+const map2 = new Map();
+map2.set('pommes', 10);
+map2.set('bananes', 5);
+
+// 3️⃣ Boucle (données variables) - À partir d'un tableau
+const items = [['pommes', 10], ['bananes', 5]];
+const map3 = new Map();
+items.forEach(([key, value]) => map3.set(key, value));
+```
+
+---
+
+### Parcours de Map
+
+```javascript
+// ✅ Avec forEach - Modifier les valeurs
+map.forEach((value, key) => {
+  if (value === 1) {
+    map.set(key, 100); // Modification en place
+  }
+});
+
+// ✅ Avec for...of - Accès aux clés et valeurs
+for (let [key, value] of map) {
+  console.log(key, value);
+}
+```
+
+---
+
+## 💡 TRUCS ET ASTUCES
+
+### Spread operator avec objets
+
+```javascript
+// Ajouter/Modifier une propriété dans un objet
+return {
+  ...student,          // 📋 Copie toutes les propriétés existantes
+  grade: newGrade      // ✏️ Ajoute/modifie une propriété
+};
+```
+
+---
+
+### Vérification de tableau
+
+```javascript
+// ✅ LA meilleure méthode
+Array.isArray(variable)
+
+// ❌ Autres méthodes (moins bonnes)
+variable instanceof Array              // Problèmes avec les iframes
+typeof variable === 'object' && variable !== null  // Trop verbeux
+```
+
+---
+
+### Chaînage de méthodes
+
+```javascript
+// ✨ Style fonctionnel élégant
+return students
+  .filter(student => student.location === city)
+  .map(student => ({
+    ...student,
+    grade: getGrade(student.id)
+  }));
+```
+
+---
+
+## 📊 RÉSUMÉ DES STRUCTURES
+
+| Structure | Quand l'utiliser ? | Méthodes clés |
+|-----------|-------------------|---------------|
+| **Array** 📚 | Liste ordonnée, avec doublons | `map`, `filter`, `reduce`, `forEach` |
+| **Set** 🛡️ | Éléments uniques, vérification rapide | `add`, `has`, `delete`, `size` |
+| **Map** 🗺️ | Paires clé-valeur, clés complexes | `set`, `get`, `has`, `forEach` |
+| **TypedArray** 🔢 | Données binaires, performance | `setInt8`, `getInt8` (via `DataView`) |
+
+---
+
+## 🎓 LEÇONS CLÉS
+
+> 💡 **`return` est souvent oublié** - Toujours vérifier qu'on retourne bien le résultat !
+
+> ✅ **Vérifier les paramètres** - Surtout contre `undefined` et types incorrects
+
+> 🔄 **`map` vs `filter`** - `map` transforme, `filter` sélectionne
+
+> 🛡️ **Sets éliminent les doublons** - Utiliser pour avoir des valeurs uniques
+
+> 🗺️ **Maps préservent l'ordre** - Contrairement aux objets simples
+
+> 🔢 **TypedArrays = binaire** - Pour les données brutes, pas pour les tableaux normaux
+
+---
+
+## 🎯 SYNTAXES PRATIQUES (SUITE)
+1. map() - Transformation
+javascript
+// Extraire les IDs d'un tableau d'objets
+const ids = students.map(student => student.id);
+
+// Version complète
+const ids = students.map(function(student) {
+  return student.id;
+});
+2. filter() - Filtrage
+javascript
+// Filtrer les étudiants d'une ville
+const sanFranciscoStudents = students.filter(student => 
+  student.location === 'San Francisco'
+);
+
+// Avec vérification
+const result = array.filter(item => item && item.property === value);
+3. reduce() - Réduction/Agrégation
+javascript
+// Somme des IDs
+const sum = students.reduce((total, student) => total + student.id, 0);
+
+// Accumulateur = première valeur si pas de valeur initiale
+const sum = students.reduce((total, student) => total + student.id);
+4. every() - Tous vérifient une condition
+javascript
+// Tous les éléments sont dans le Set ?
+const allExist = array.every(element => set.has(element));
+// S'arrête au premier false (short-circuit) !
+5. startsWith() - Vérifier le début d'un string
+javascript
+// Pour cleanSet
+value.startsWith(startString)
+value.slice(startString.length) // Enlève le début
+🚨 BONNES PRATIQUES APPRISES
+Vérification des paramètres
+javascript
+function maFonction(param) {
+  // Vérifier plusieurs cas
+  if (!param || param.length === 0) {
+    return valeurParDefaut;
+  }
+  
+  // Vérifier le type
+  if (!Array.isArray(param)) {
+    return [];
+  }
+  
+  if (!(param instanceof Map)) {
+    throw new Error('Message d\'erreur');
+  }
+}
+Gestion d'erreurs
+javascript
+// Pour les Typed Arrays
+if (position < 0 || position >= length) {
+  throw new Error('Position outside range');
+}
+Return early pattern
+javascript
+function exemple(data) {
+  if (!data) return null;          // Sortie précoce
+  if (data.length === 0) return []; // Sortie précoce
+  
+  // Logique principale
+  return data.map(...);
+}
+🔄 COMPARAISON DES APPROCHES
+Création de Map
+javascript
+// 1. Direct (statique)
+const map1 = new Map([['pommes', 10], ['bananes', 5]]);
+
+// 2. Avec .set() (dynamique)
+const map2 = new Map();
+map2.set('pommes', 10);
+map2.set('bananes', 5);
+
+// 3. Boucle (données variables)
+const items = [['pommes', 10], ['bananes', 5]];
+const map3 = new Map();
+items.forEach(([key, value]) => map3.set(key, value));
+Parcours de Map
+javascript
+// Modifier les valeurs
+map.forEach((value, key) => {
+  if (value === 1) {
+    map.set(key, 100); // Modification en place
+  }
+});
+
+// Avec for...of
+for (let [key, value] of map) {
+  console.log(key, value);
+}
+💡 TRUCS ET ASTUCES
+Spread operator avec objets
+javascript
+// Ajouter une propriété à un objet existant
+return {
+  ...student,          // Copie toutes les propriétés
+  grade: newGrade      // Ajoute/modifie une propriété
+};
+Vérification de tableau
+javascript
+// La meilleure méthode
+Array.isArray(variable)  // ✅ Recommandé
+
+// Autres méthodes (moins bonnes)
+variable instanceof Array  // ❌ Problèmes avec les iframes
+typeof variable === 'object' && variable !== null  // ❌ Trop verbeux
+Chaînage de méthodes
+javascript
+// Style fonctionnel élégant
+return students
+  .filter(student => student.location === city)
+  .map(student => ({
+    ...student,
+    grade: getGrade(student.id)
+  }));
+📊 RÉSUMÉ DES STRUCTURES
+Structure	Quand l'utiliser ?	Méthodes clés
+Array	Liste ordonnée, avec doublons	map, filter, reduce, forEach
+Set	Éléments uniques, vérification rapide	add, has, delete, size
+Map	Paires clé-valeur, clés complexes	set, get, has, forEach
+TypedArray	Données binaires, performance	setInt8, getInt8 (via DataView)
+🎓 LEÇONS CLÉS DE NOTRE SESSION
+return est souvent oublié - Toujours vérifier qu'on retourne bien le résultat !
+
+Vérifier les paramètres - Surtout contre undefined et types incorrects
+
+map vs filter - map transforme, filter sélectionne
+
+Sets éliminent les doublons - Utiliser pour avoir des valeurs uniques
+
+Maps préservent l'ordre - Contrairement aux objets simples
+
+TypedArrays = binaire - Pour les données brutes, pas pour les tableaux normaux
+
+
 Synthèse
 Pour résumer, l'étude de ces structures de données nous révèle trois catégories principales de collections indexées ou basées sur des clés/valeurs en JavaScript :
 1. Collections ordonnées et mutables par index (Array) : Optimisées pour stocker et manipuler des listes d'éléments ordonnés, mais avec des implications sur l'accès aux propriétés et les copies.
