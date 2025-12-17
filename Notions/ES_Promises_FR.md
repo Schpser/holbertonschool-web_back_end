@@ -511,4 +511,4 @@ export default async function maFonctionAsync(param) {
 - [JavaScript.info - Promises](https://javascript.info/promise-basics) : Tutoriel interactif
 - [Event Loop Visualizer](http://latentflip.com/loupe/) : Visualiser l'ordre d'exécution
 
-**🎉 Happy coding avec les promesses !**
+**🎉 Happy coding !**
