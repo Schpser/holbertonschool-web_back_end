@@ -1,10 +1,10 @@
 console.log('Welcome to Holberton School, what is your name?');
 
-let name = '';
+let userName = '';
 
 process.stdin.on('data', (data) => {
-  name = data.toString().trim();
-  console.log(`Your name is: ${name}`);
+  userName = data.toString().trim();
+  console.log(`Your name is: ${userName}`);
 
 });
 
