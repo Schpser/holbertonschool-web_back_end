@@ -6,12 +6,12 @@ function countStudents(path) {
     const lines = data.trim().split('\n').filter(line => line.trim() !== '');
     
     if (lines.length <= 1) {
-      console.log('Number of students: 0');
+      process.stdout.write('Number of students: 0\n');
       return;
     }
     
     const students = lines.slice(1);
-    console.log(`Number of students: ${students.length}`);
+    process.stdout.write(`Number of students: ${students.length}\n`);
     
     const fields = {};
     
@@ -28,7 +28,7 @@ function countStudents(path) {
     sortedFields.forEach(field => {
       const count = fields[field].length;
       const list = fields[field].join(', ');
-      console.log(`Number of students in ${field}: ${count}. List: ${list}`);
+      process.stdout.write(`Number of students in ${field}: ${count}. List: ${list}\n`);
     });
     
   } catch (error) {
