@@ -35,4 +35,4 @@ function countStudents(path) {
     throw new Error('Cannot load the database');
   }
 }
-export default countStudents;
+module.exports = countStudents;
