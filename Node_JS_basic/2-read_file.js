@@ -25,12 +25,10 @@ function countStudents(path) {
       fields[field].push(firstname);
     });
 
-    const sortedFields = Object.keys(fields).sort();
-
-    sortedFields.forEach((field) => {
-      const names = fields[field];
+    for (const [field, names] of Object.entries(fields)) {
       console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
-    });
+    }
+
   } catch (error) {
     throw new Error('Cannot load the database');
   }
