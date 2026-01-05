@@ -1,18 +1,22 @@
-console.log('Welcome to Holberton School, what is your name?');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-let userName = '';
+let input = '';
 
-process.stdin.on('data', (data) => {
-  userName = data.toString().trim();
-  console.log(`Your name is: ${userName}`);
-
-});
-
-process.on('SIGINT', () => {
-  console.log('This important software is now closing');
-  process.exit();
-});
-
-process.stdin.on('end', () => {
-  console.log('This important software is now closing');
-});
+if (!process.stdin.isTTY) {
+  process.stdin.on('data', (chunk) => {
+    input += chunk;
+  });
+  
+  process.stdin.on('end', () => {
+    const name = input.trim();
+    console.log(`Your name is: ${name}`);
+    console.log('This important software is now closing');
+  });
+}
+else {
+  process.stdin.once('data', (data) => {
+    const name = data.toString().trim();
+    console.log(`Your name is: ${name}`);
+    process.exit(0);
+  });
+}
