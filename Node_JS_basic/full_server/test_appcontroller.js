@@ -4,8 +4,8 @@ console.log('=== Test 1: getAllStudents ===');
 const res1 = {
   _msg: '',
   type: () => res1,
-  send: (msg) => { res1._msg = msg; console.log('Réponse:', msg.substring(0, 50) + '...'); },
-  status: () => res1
+  send: (msg) => { res1._msg = msg; console.log('Réponse:', `${msg.substring(0, 50)}...`); },
+  status: () => res1,
 };
 process.argv[2] = '../database.csv';
 StudentsController.getAllStudents(null, res1);
@@ -16,7 +16,7 @@ const res2 = {
   _msg: '',
   type: () => res2,
   send: (msg) => { res2._msg = msg; console.log('Réponse:', msg); },
-  status: () => res2
+  status: () => res2,
 };
 StudentsController.getAllStudentsByMajor(req2, res2);
 
@@ -26,6 +26,6 @@ const res3 = {
   _msg: '',
   type: () => res3,
   send: (msg) => { res3._msg = msg; console.log('Erreur:', msg); },
-  status: (code) => { console.log('Status:', code); return res3; }
+  status: (code) => { console.log('Status:', code); return res3; },
 };
 StudentsController.getAllStudentsByMajor(req3, res3);

@@ -1,4 +1,3 @@
-const databasePath = process.argv[2];
 const express = require('express');
 const router = require('./routes/index');
 
